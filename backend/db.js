@@ -1,8 +1,11 @@
 import { Database } from "bun:sqlite";
 
+console.log("📦 Initializing database...");
 export const db = new Database("app.db");
+console.log("✅ Database connected: app.db");
 
 db.run("PRAGMA foreign_keys = ON");
+console.log("✅ Foreign keys enabled");
 
 db.run(`
   CREATE TABLE IF NOT EXISTS users(
@@ -11,6 +14,7 @@ db.run(`
     password TEXT
   );
 `);
+console.log("✅ Table 'users' ready");
 
 db.run(`
   CREATE TABLE IF NOT EXISTS restaurants(
@@ -18,6 +22,7 @@ db.run(`
     name TEXT UNIQUE
   );
 `);
+console.log("✅ Table 'restaurants' ready");
 
 db.run(`
   CREATE TABLE IF NOT EXISTS menus(
@@ -28,6 +33,7 @@ db.run(`
     FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
   );
 `);
+console.log("✅ Table 'menus' ready");
 
 // Add price column to existing menus table if it doesn't exist
 try {
@@ -44,6 +50,7 @@ db.run(`
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
   );
 `);
+console.log("✅ Table 'carts' ready");
 
 db.run(`
   CREATE TABLE IF NOT EXISTS cart_items (
@@ -55,6 +62,7 @@ db.run(`
     FOREIGN KEY (menu_id) REFERENCES menus(id) ON DELETE CASCADE
   );
 `);
+console.log("✅ Table 'cart_items' ready");
 
 db.run(`
   CREATE TABLE IF NOT EXISTS invoices (
@@ -64,6 +72,7 @@ db.run(`
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
   );
 `);
+console.log("✅ Table 'invoices' ready");
 
 db.run(`
   CREATE TABLE IF NOT EXISTS invoice_items (
@@ -75,3 +84,5 @@ db.run(`
     FOREIGN KEY (menu_id) REFERENCES menus(id) ON DELETE CASCADE
   );
 `);
+console.log("✅ Table 'invoice_items' ready");
+console.log("✅ Database schema initialized successfully");

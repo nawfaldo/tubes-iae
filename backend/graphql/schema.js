@@ -158,3 +158,6 @@ export const rootResolvers = {
   },
 };
 
+console.log("✅ GraphQL schema loaded");
+console.log("✅ GraphQL resolvers initialized");
+

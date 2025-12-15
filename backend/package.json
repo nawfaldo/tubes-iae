@@ -3,6 +3,10 @@
   "module": "index.js",
   "type": "module",
   "private": true,
+  "scripts": {
+    "start": "bun run index.js",
+    "seed": "bun run seed.js"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
